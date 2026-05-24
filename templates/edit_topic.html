@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Редактировать пост — ROZDUM{% endblock %}
+{% block content %}
+
+<section class="form-card card">
+    <div class="back-row">
+        <a class="back-btn" href="{{ url_for('topic_view', topic_id=topic.id) }}">← Назад</a>
+    </div>
+
+    <h1>Редактировать пост</h1>
+
+    {% if topic.image %}
+        <img class="topic-image edit-preview" src="{{ url_for('static', filename='uploads/' ~ topic.image) }}" alt="current image">
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" id="editTopicForm">
+        <div class="field">
+            <label>Заголовок</label>
+            <input type="text" name="title" value="{{ topic.title }}" required>
+        </div>
+
+        <div class="field">
+            <label>Текст</label>
+            <textarea name="content" rows="10" required>{{ topic.content }}</textarea>
+        </div>
+
+        <div class="field">
+            <label class="file-label">Замени фото, если нужно</label>
+            <input type="file" name="image" accept="image/*">
+        </div>
+
+        <div class="form-actions">
+            <a class="btn-ghost" href="{{ url_for('topic_view', topic_id=topic.id) }}">Назад</a>
+            <button class="btn-primary" type="submit">Сохранить</button>
+        </div>
+    </form>
+</section>
+
+{% endblock %}
